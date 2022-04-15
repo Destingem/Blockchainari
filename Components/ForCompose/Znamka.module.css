@@ -24,10 +24,13 @@
     padding: 3% 2%;
 }
 .preview{
+    display: flex;
+    flex-direction: column;
     width: 100%;
     border-radius: 3px;
     background-color:rgba(253, 253, 253, 0.3);
     padding: 3% 2%;
+    gap: 2%;
 }
 .zak{
     display: flex;
@@ -41,4 +44,26 @@
 }
 .zak > *{
     margin: 0;
+}
+.znamky{
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+.znamka{
+    display: flex;
+    background-color: aquamarine;
+    padding: 2%;
+    border-radius: 3px;
+    align-items: center;
+    gap: 2%;
+}
+.znamka > *{
+    margin: 0;
+}
+.grade{
+    font-weight: bold;
+    font-size: large;
+    white-space: nowrap;
 }

@@ -7,11 +7,16 @@ export default async function getUsers(router){
         for (var a in data.users) {
           if (data[a] !== "" || undefined || null) {
             let { birth, firstName, lastName, address } = data.users[a];
+            var znamky = {}
+            if (data.users[a].zak && data.users[a].zak.znamky) {
+              znamky = data.users[a].zak.znamky
+            }
             resolved.unshift({
               value: address,
               birth,
               firstName,
               lastName,
+              znamky,
               label: firstName + " " + lastName + " (" + address + ") ",
               key: Randomstring.generate(7)
             });

@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         case "znamky":
             if (body && body.predmet && body.tema && body.trida && body.vaha && body.zak && body.zamereni && body.znamka) {
                 type = body.zak.map(zak => {
-                  return "tridy/" + body.trida + "/zamereni/" + body.zamereni + "/zaci/" + zak + "/znamky"
+                  return "authedUsers/" + zak + "/zak/znamky"
                 })
                 method =  "POST"
                 let {znamka, vaha, predmet, tema} = body
@@ -77,7 +77,7 @@ export default async function handler(req, res) {
               
               })
               let typeA = body.selectedUser.map(user => {
-                 return "authedUsers/" + body.selectedUser + "/" + lodash.deburr(body.selectedPosition).toLowerCase().replace(" ", "")
+                 return "authedUsers/" + user + "/" + lodash.deburr(body.selectedPosition).toLowerCase().replace(" ", "")
               })
               type=[...type, ...typeA]
               method = "PUT"

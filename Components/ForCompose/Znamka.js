@@ -6,6 +6,8 @@ import {
   Input,
   MultiSelect,
   Select,
+  Accordion,
+  AccordionItem,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import useFetch from "../customHooks/useFetch";
@@ -21,6 +23,7 @@ export default function Znamka(props) {
   const [zamereni, setZamereni] = useState(["KB", "IT", "LG"]);
   const [zaci, setZaci] = useState([" ", " ", " "]);
   const [selClass, setSelClass] = useState("");
+  const [grades, setGrades] = useState([{}, {}])
   const router = useRouter();
   const form = useForm({
     initialValues: {
@@ -32,7 +35,6 @@ export default function Znamka(props) {
       predmet: "",
     },
   });
-  console.log(form);
   useEffect(() => {
     if (firstLoad == false) {
       var selectedClass = classes.filter((item) => {
@@ -61,8 +63,15 @@ export default function Znamka(props) {
         for (let zak in selClass[0].zamereni[form.values.zamereni].zaci) {
           zaciARR.push({wallet: [zak], label: [zak], value: [zak]});
         }
-        const users = await getUsers(router)
-        
+        var users = await getUsers(router)
+        for(let user in users){
+          var znamkyARR = []
+          for(let znamka in users[user].znamky){
+            znamkyARR.push(users[user].znamky[znamka])
+          }
+          users[user].znamky = znamkyARR
+        }
+        console.log(users);
         var findedARR = []
         for(let user in users){
           for( let zak in zaciARR){
@@ -157,6 +166,27 @@ export default function Znamka(props) {
               <p>{zak.firstName + " " + zak.lastName}</p>
               <p>{zak.value}</p>
               <p>{zak.birth}</p>
+              {zak.znamky ? 
+              <Accordion >
+                <AccordionItem label="Známky" >
+                <div className={styles.znamky}>
+                  {zak.znamky.map(znamka => {
+                    return(
+                      <div className={styles.znamka}>
+                      <p className={styles.grade}>{znamka.znamka}</p>
+                      <p>{znamka.date}</p>
+                      <p>{znamka.od}</p>
+                      <p>{znamka.predmet}</p>
+                      <p>{znamka.tema}</p>
+                      <p>{znamka.vaha}</p>
+                      
+                       </div>
+                    )
+                  })}
+                </div>
+                </AccordionItem>
+              </Accordion>
+              : null}
             </div>
           )
         })) : null}
