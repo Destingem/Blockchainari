@@ -4,7 +4,17 @@
     display: flex;
     flex-direction: column;
     align-self: center;
-    align-items: center;
+    align-items: left;
+}
+.main > *{
+    margin: 0;
+}
+.heading{
+    padding-bottom: 0.5rem;
+    color: #fff;
+    font-size:x-large;
+    font-weight: 300;
+    letter-spacing: 0.05rem;
 }
 
 .klasifikace{
@@ -35,9 +45,8 @@
 .zak{
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: rgba(255, 255, 255, 0.32);
     border-radius: 3px;
-    padding: 1% 2%;
     width: 100%;
     height: min-content;
     margin: 0;
@@ -45,15 +54,19 @@
 .zak > *{
     margin: 0;
 }
+.zak_info{
+    padding: 2% 1% 0% 1% ;
+}
 .znamky{
     display: flex;
     flex-direction: column;
+    gap: 0.3rem;
     
     
 }
 .znamka{
     display: flex;
-    background-color: aquamarine;
+    background-color: rgba(255, 255, 255, 0.447);
     padding: 2%;
     border-radius: 3px;
     align-items: center;
@@ -61,6 +74,7 @@
 }
 .znamka > *{
     margin: 0;
+    font-size: small;
 }
 .grade{
     font-weight: bold;

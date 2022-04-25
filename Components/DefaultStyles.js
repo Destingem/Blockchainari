@@ -5,12 +5,16 @@ import Head from "next/head";
 import RegisterInfo from "./RegisterInfo/RegisterInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { useMetaMask } from "metamask-react";
-
+import styles from "./DefaultStyles.module.css"
 export default function DefaultStyles(props) {
-  const modals = useSelector(state => {return state.modals})
-  const state = useSelector(state => state)
+  try {
+    var modals = useSelector(state => {return state.modals})
+    var state = useSelector(state => state)
+  } catch (error) {
+    console.log(error);
+  }
   return (
-    <>
+    <div className={styles.main}>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,10 +23,10 @@ export default function DefaultStyles(props) {
           rel="stylesheet"
         />
       </Head>
-      {modals.register == true && <RegisterInfo state={state} />}
+      {modals && modals.register == true && state && <RegisterInfo state={state} />}
       <NavBar />
       {props.children}
       <Bottom />
-    </>
+    </div>
   );
 }

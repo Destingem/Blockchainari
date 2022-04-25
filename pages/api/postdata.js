@@ -1,9 +1,11 @@
 var jwt = require("jsonwebtoken");
 var lodash = require("lodash")
+import 'dayjs/locale/cs';
 export default async function handler(req, res) {
   var body = await JSON.parse(req.body);
   const secretKey = process.env.JSW_PASS;
   console.log(body);
+  var date = new Date().toLocaleDateString("cs-CZ", { weekday: "short", year: 'numeric', month: 'short', day: 'numeric' }).toString()
   try {
     const token = await jwt.verify(body.Auth_token, secretKey, { maxAge: "1h" });
     console.log(token);
@@ -17,7 +19,18 @@ export default async function handler(req, res) {
             type = body.prijemce.map(prij=> {
               return  "/authedUsers/"+ prij +"/zpravy"
             })
-              
+              let fetched = await fetch("https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/authedUsers.json")
+              let resolved = await fetched.json()
+              console.log(resolved);
+              var odesilatel = {}
+              for (let person in await resolved){
+                if (resolved[person].address == token.address) {
+                  console.log(resolved[person].address );
+                  console.log( token.address);
+                  odesilatel =  {firstName: person.firstName, lastName: person.lastName}
+                }
+              }
+              body.odesilatel = odesilatel
           }
           break;
         case "znamky":
@@ -28,31 +41,23 @@ export default async function handler(req, res) {
                 method =  "POST"
                 let {znamka, vaha, predmet, tema} = body
                 body = {znamka, vaha, predmet, tema}
+                date = new Date().toLocaleDateString("cs-CZ", { weekday: "short", month: 'short', day: 'numeric' })
             }
             break;
         case "du":
      
-            if (body && body.odData && body.doData && body.tema) {
+            if (body && body.predmet && body.datum && body.tema) {
                 if (body.zak[0]) {
                   type = body.zak.map(zak => {
-                    return "tridy/" + body.trida + "/zamereni/" + body.zamereni + "/" + zak + "/ukoly"
+                    return "authedUsers/" + zak + "/zak/ukoly"
                   })
-                  let {odData, doData, tema} = body
-                body = {odData, doData, tema}
+                  let {datum , tema, predmet} = body
+                  
+                body = {datum, tema, predmet}
                 } 
-                else if(body.zamereni){
-                 
-                  type = "tridy/" + body.trida + "/zamereni/" + body.zamereni + "/ukoly"
-                  let {odData, doData, tema} = body
-                  body = {odData, doData, tema}
-                } 
-                else if(body.trida && body.trida !== ""){
-                  type = "tridy/" + body.trida + "/ukoly"
-                  let {odData, doData, tema} = body
-                  body = {odData, doData, tema}
-                }
+                
             } else{
-       
+              
             }
             
           break;
@@ -63,8 +68,8 @@ export default async function handler(req, res) {
           }
           break;
         case "predmety":
-          if (body && body.nazev) {
-            type="predmet/" + body.nazev
+          if (body && body.nazevPredmetu) {
+            type="predmety/" + body.nazevPredmetu
             method="PUT"
           }
           break;
@@ -81,7 +86,38 @@ export default async function handler(req, res) {
               })
               type=[...type, ...typeA]
               method = "PUT"
-            }
+            } else if (body.selectedPosition== "Učitel"){
+              type = "ucitele/" + body.selectedUser
+              let typeA = "authedUsers/" + body.selectedUser + "/ucitel"
+              type = [type, typeA]
+              method="PUT"
+            } else if(body.selectedPosition== "Administrativní pracovník"){
+              type = "pracovnici/" + body.selectedUser
+              let typeA = "authedUsers/" + body.selectedUser + "/pracovnik"
+              type = [type, typeA]
+              method="PUT"
+            } else if(body.selectedPosition== "Pracovník s personálními pravomocemi"){
+              type = "pracovniciOP/" + body.selectedUser
+              let typeA = "authedUsers/" + body.selectedUser + "/pracovnikOP"
+              type = [type, typeA]
+              method="PUT"
+            } else if(body.selectedPosition== "Zástupce"){
+              type = "zastupci/" + body.selectedUser
+              let typeA = "authedUsers/" + body.selectedUser + "/zastupce"
+              type = [type, typeA]
+              method="PUT"
+            } else if(body.selectedPosition== "Ředitel"){
+              type = "reditel/" + body.selectedUser
+              let typeA = "authedUsers/" + body.selectedUser + "/reditel"
+              type = [type, typeA]
+              method="PUT"
+            } else if(body.selectedPosition== "Administrátor"){
+              type = "administratory/" + body.selectedUser
+              let typeA = "authedUsers/" + body.selectedUser + "/administrator"
+              type = [type, typeA]
+              method="PUT"
+            } 
+            //
             delete body.selectedUser
             delete body.deleteUser
 
@@ -96,6 +132,10 @@ export default async function handler(req, res) {
         case "obor":
           console.log(body);
           type="obory/" + lodash.deburr(body.obor).toLowerCase().replace(" ", "")
+          method="PUT"
+          break;
+        case "predmet":
+          type="predmety/" + body.predmet
           method="PUT"
           break;
         default:
@@ -114,7 +154,7 @@ export default async function handler(req, res) {
                 body: JSON.stringify({
                   ...body,
                   od: token.address,
-                  date: Date().toLocaleString("cs-CZ").toString().slice(0, 24),
+                  date
                 }),
               }
             );
@@ -127,7 +167,7 @@ export default async function handler(req, res) {
                   body: JSON.stringify({
                     ...body,
                     od: token.address,
-                    date: Date().toLocaleString("cs-CZ").toString().slice(0, 24),
+                    date
                   }),
                 }
               );

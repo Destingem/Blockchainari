@@ -1,0 +1,74 @@
+.rozvrh {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  position: static;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.3);
+}
+.rozvrh_head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+
+  position: static;
+  width: 100%;
+  height: 10vh;
+
+  background: #3d56b2;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.rozvrh_header {
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+}
+.obsah {
+  margin: 2% 5%;
+  height: fit-content;
+  justify-content: center;
+}
+.card {
+  padding: 0;
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+.hodina{
+    aspect-ratio: 1 / 1;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    padding: 0;
+    
+
+}
+.day{
+    padding: 0px;
+    display: flex;
+    width: 93%;
+    height:100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff18;
+    
+}
+.padding0{
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.4);
+}

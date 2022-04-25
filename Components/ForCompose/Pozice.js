@@ -1,5 +1,5 @@
 import styles from "./Pozice.module.css";
-import { Button, MultiSelect, Select } from "@mantine/core";
+import { Button, MultiSelect, Notification, Select } from "@mantine/core";
 import { useEffect, useState } from "react";
 import useFetch from "../customHooks/useFetch";
 import { useRouter } from "next/router";
@@ -7,9 +7,10 @@ import Randomstring from "randomstring";
 import { useForm } from "@mantine/form";
 import getUsers from "../customHooks/getUsers";
 import getTrida from "../customHooks/getTrida";
-var firstLoad = true
+var firstLoad = true;
 export default function Pozice(props) {
   const router = useRouter();
+  const [message, setMessage] = useState({text: "", color: "blue"})
   const [persons, setPersons] = useState([
     {
       wallet: "0x456882",
@@ -21,15 +22,15 @@ export default function Pozice(props) {
   const pozice = [
     "Visitor",
     "Žák",
-    "Uklizečky apod.",
+    "Administrativní pracovník",
     "Učitel",
-    "Studijní apod.",
+    "Pracovník s personálními pravomocemi",
     "Zástupce",
     "Ředitel",
     "Administrátor",
   ];
   const [classes, setClasses] = useState([]);
-  const [zamereni, setZamereni] = useState([])
+  const [zamereni, setZamereni] = useState([]);
   const form = useForm({
     initialValues: {
       selectedUser: "",
@@ -49,7 +50,12 @@ export default function Pozice(props) {
   }
   useEffect(async () => {
     const result = await getTrida(router);
-    setClasses(result);
+    console.log(result);
+    if (result[0] && result[0].value) {
+      setClasses(result);
+    } else{
+        setMessage({text:"Nebyly nalezeny žádné třídy!", color: "red"})
+    }
   }, []);
   useEffect(() => {
     if (firstLoad == false) {
@@ -66,17 +72,17 @@ export default function Pozice(props) {
         for (let selectedItem in selectedClass[0].zamereni) {
           selectedArray.push(selectedItem);
         }
-        setZamereni(selectedArray)
+        setZamereni(selectedArray);
       }
-      
-      
     } else {
       firstLoad = false;
     }
   }, [form.values.selectedTrida]);
 
   return (
-    <div className={styles.persons}>
+    <div className={styles.main}>
+      <h1 className={styles.heading}>Pozice</h1>
+      {message.text && <Notification color={message.color}>{message.text}</Notification>}
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <MultiSelect
           data={persons}
@@ -90,19 +96,21 @@ export default function Pozice(props) {
           limit={20}
           {...form.getInputProps("selectedPosition", { type: "input" })}
         />
-        {form.values.selectedPosition == "Žák" && (
+        {form.values.selectedPosition == "Žák" && classes[0] && (
           <Select
             data={classes}
             searchable
             limit={20}
+            required
             {...form.getInputProps("selectedTrida", { type: "input" })}
           />
         )}
-        {form.values.selectedPosition == "Žák" && (
+        {form.values.selectedPosition == "Žák" && zamereni[0] && (
           <Select
             data={zamereni}
             searchable
             limit={20}
+            required
             {...form.getInputProps("selectedZamereni", { type: "input" })}
           />
         )}

@@ -46,8 +46,8 @@ export default function Zprava(props) {
     props.handleSubmit(params, "zpravy", form);
   }
   return (
-    <div className={styles.zpravy}>
-      <h3>Zprávy</h3>
+    <div className={styles.main}>
+      <h3 className={styles.heading}>Zprávy</h3>
       <form onSubmit={form.onSubmit(handleSubmit)} className="zpravy">
         <InputWrapper required label="Příjemce">
           <MultiSelect

@@ -1,0 +1,9 @@
+.main{
+    height: 100vh;
+    color: #fff;
+}
+.user{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+}

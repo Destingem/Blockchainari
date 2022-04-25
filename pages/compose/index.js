@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import styles from "./compose.module.css";
-import { Notification } from "@mantine/core";
+import { MantineProvider, Notification, Tab, Tabs } from "@mantine/core";
 import { NativeSelect } from "@mantine/core";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { useDispatch } from "react-redux";
@@ -13,11 +13,18 @@ import Trida from "../../Components/ForCompose/Trida";
 import Predmet from "../../Components/ForCompose/Predmet";
 import Pozice from "../../Components/ForCompose/Pozice";
 import { useRouter } from "next/router";
+import {SiGoogleclassroom} from "react-icons/si"
+import {RiNumber1} from "react-icons/ri"
+import {MdOutlineFormatListBulleted} from "react-icons/md"
+import {AiOutlineSchedule} from "react-icons/ai"
+import {BiMessage} from "react-icons/bi"
+import {FaChalkboardTeacher, FaUserFriends} from "react-icons/fa"
+import Rozvrh from "../../Components/ForCompose/Rozvrh";
+import Uzivatele from "../../Components/ForCompose/Uzivatele";
 export default function Compose() {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const router = useRouter()
-  const [value, setValue] = useState("");
   async function handleSubmit(props, type, form) {
    console.log(props);
     var request = {};
@@ -34,31 +41,42 @@ export default function Compose() {
         break;
       case "du":
         console.log(props);
-        var {doData, odData, tema, trida, zak, zamereni} = props
-        request = { Auth_token, type, odData, doData, tema, trida, zak, zamereni };
+        var {datum, tema, trida, zak, zamereni, predmet} = props
+        request = { Auth_token, type, datum, tema, trida, zak, zamereni, predmet };
       break;
       case "tridy":
-        let {nazev, obor, kod, zamereni: zamereniA} = props
+        let {nazev, obor, kod, zamereni: zamereniA, predmety} = props
         var objectZamereni = {}
         zamereniA.map(zamer=> {
 
           objectZamereni = {...objectZamereni, [zamer]: {a: "a"}}
         })
-        console.log(objectZamereni);
-        request = {Auth_token, nazev, obor, zamereni: objectZamereni, kod, type}
+        var objectPredmety = {}
+        predmety.map(predmet=> {
+
+          objectPredmety = {...objectPredmety, [predmet]: {a: "a"}}
+        })
+        request = {Auth_token, nazev, obor, zamereni: objectZamereni, kod, type, predmety: objectPredmety}
       break;
       case "predmety":
-        nazev = props.target[0].value
-        popis =  props.target[1].value
-        vyucujici = props.target[2].value
-        request = {Auth_token, nazev, popis, vyucujici, type}
+        let {nazevPredmetu, zkratka, vyucujici} = props
+        var vyucujiciARR = {}
+        for(let teacher in vyucujici){
+          vyucujiciARR = {...vyucujiciARR, [vyucujici[teacher]]: "a"}
+        }
+        request = {Auth_token, nazevPredmetu, zkratka, vyucujici, type}
         break;
       case "pozice":
-        if (props.selectedPosition && props.selectedPosition == "Žák") {
-          let {selectedPosition, selectedTrida, selectedUser, deleteUser, selectedZamereni} = props
-          request = {Auth_token, selectedPosition, selectedTrida, selectedZamereni, selectedUser, deleteUser, type}
-        }
-        
+      if (props.selectedPosition) {
+          if (props.selectedPosition == "Žák") {
+            let {selectedPosition, selectedTrida, selectedUser, deleteUser, selectedZamereni} = props
+            request = {Auth_token, selectedPosition, selectedTrida, selectedZamereni, selectedUser, deleteUser, type}
+          } else{
+            let {selectedPosition, selectedUser} = props
+            request = {Auth_token, selectedPosition, selectedUser: selectedUser[0], type}
+          }
+      }
+        console.log(props);
         break;
       case "rozvrhy":
         break;
@@ -69,6 +87,10 @@ export default function Compose() {
         console.log(props);
         const obors = props
         request = {Auth_token, obor: props, type}
+        break;
+      case "predmet":
+        
+        request = {Auth_token, predmet: props, type}
         break;
       default:
         break;
@@ -97,6 +119,7 @@ export default function Compose() {
   }
 
   return (
+    <MantineProvider>
     <div className={styles.main}>
       {message && (
         <Notification
@@ -110,23 +133,19 @@ export default function Compose() {
           {message}
         </Notification>
       )}
-      <NativeSelect
-        data={["Známka", "Domácí úkol", "Rozvrh", "Zpráva", "Třída", "Předmět", "Správa uživatelů"]}
-        placeholder="Co chcete přidat"
-        label="Vyberte co chete přidat"
-        description="Známku, Domácí úkoly, Rozvrh či zprávu"
-        required
-        value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
-      />
-
-      {value == "Zpráva" && <Zprava handleSubmit={handleSubmit} />}
-      {value == "Známka" && <Znamka handleSubmit={handleSubmit} />}
-      {value == "Domácí úkol" && <Du handleSubmit={handleSubmit} />}
-      <div className={styles.rozvrh}></div>
-      {value == "Třída" && <Trida handleSubmit={handleSubmit} />}
-      {value == "Předmět" && <Predmet handleSubmit={handleSubmit} />}
-      {value == "Správa uživatelů" && <Pozice handleSubmit={handleSubmit} />}
+      
+      <Tabs className={styles.menu} >
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Známky" icon={<RiNumber1 />}><Znamka handleSubmit={handleSubmit} /></Tabs.Tab>
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Domácí úkoly" icon={<MdOutlineFormatListBulleted />}><Du handleSubmit={handleSubmit} /></Tabs.Tab>
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Rozvrh" icon={<AiOutlineSchedule  />}><Rozvrh handleSubmit={handleSubmit} /></Tabs.Tab>
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Zpráva" icon={<BiMessage />}><Zprava handleSubmit={handleSubmit} /></Tabs.Tab>
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Třída" icon={<SiGoogleclassroom />}><Trida handleSubmit={handleSubmit} /></Tabs.Tab>
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Předmět" icon={<FaChalkboardTeacher />}><Predmet handleSubmit={handleSubmit} /></Tabs.Tab>
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Přehled uživatelů" icon={<FaUserFriends />}><Uzivatele handleSubmit={handleSubmit}/></Tabs.Tab>
+        <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Správa uživatelů" icon={<FaUserFriends />}><Pozice handleSubmit={handleSubmit} /></Tabs.Tab>
+      </Tabs>
     </div>
+    </MantineProvider>
   );
 }
+// Davidova sestra je sportovní člověk

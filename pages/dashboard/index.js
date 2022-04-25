@@ -9,6 +9,8 @@ import { Paper, Text } from "@mantine/core";
 import Zpravy from "../../Components/ForDashboard/Zpravy";
 import Randomstring from "randomstring";
 import Znamky from "../../Components/ForDashboard/Znamky";
+import Du from "../../Components/ForDashboard/Du";
+import Rozvrh from "../../Components/ForDashboard/Rozvrh";
 export default function Dashboard() {
   const [obsah, setObsah] = useState({ zpravy: [], grade: [], homework: [] });
   const dispatch = useDispatch();
@@ -24,52 +26,59 @@ export default function Dashboard() {
     res.then((data) => {
       console.log(data);
       if (data && data.zpravy) {
-        const msg = [];
+        var msg = [];
         for (var message in data.zpravy) {
           if (data.zpravy[message].date !== "") {
-            let { date, nadpis, od, zprava } = data.zpravy[message];
+            let { date, nadpis, od, text } = data.zpravy[message];
             msg.unshift({
               date,
               nadpis,
               od,
-              zprava,
+              text,
               key: Randomstring.generate(7),
             });
           }
         }
+        msg = msg.slice(0, 4)
       }
       if (data && data.klasifikace) {
-        const znamky = [];
+        var znamky = [];
         for (var a in data.klasifikace) {
           if (data.klasifikace[a] !== "" || undefined || null) {
             console.log(a);
-            let { date, tema, od, vaha, znamka } = data.klasifikace[a];
+            let { date, tema, od, vaha, znamka, predmet } = data.klasifikace[a];
             znamky.unshift({
               date,
               tema,
               od,
               vaha,
               znamka,
+              predmet,
               key: Randomstring.generate(7),
             });
           }
         }
+        znamky = znamky.slice(0, 4)
       }
       if (data && data.du) {
-        const du = [];
+        var du = [];
+        
         for (var b in data.du) {
-          if (data.du[b].date !== "" || undefined) {
-            let { date, doData, od, odData, tema } = data.du[b];
-            du.unshift({
-              date,
-              doData,
-              od,
-              odData,
-              tema,
-              key: Randomstring.generate(7),
-            });
+          
+            if (data.du[b].date !== "" || undefined) {
+              
+              let { date, datum, predmet, tema } = data.du[b];
+              du.unshift({
+                date,
+                datum,
+                predmet,
+                tema,
+                key: Randomstring.generate(7),
+              });
+            
           }
         }
+        du = du.slice(0, 3)
       }
       setObsah((obsahBefore) => {
         var zpravy = obsahBefore.zpravy;
@@ -99,31 +108,13 @@ export default function Dashboard() {
             <div className={styles.head}>
               <h2 className={styles.header}>Domácí úkoly</h2>
             </div>
-            {Array.isArray(obsah.homework) &&
-              obsah.homework.map((znamka) => {
-                return (
-                  <Paper
-                    shadow="xs"
-                    radius="xs"
-                    p="xs"
-                    sx={{ width: " 100%", maxHeight: "25%", marginTop: "1%" }}
-                  >
-                    <Text>{znamka.date}</Text>
-                    <Text>{znamka.od}</Text>
-                    <Text>{znamka.odData}</Text>
-                    <Text>{znamka.doData}</Text>
-                    <Text>{znamka.tema}</Text>
-                  </Paper>
-                );
-              })}
+            <div className={styles.obsah}>
+            <Du du={obsah.homework} />
+            </div>
           </div>
         </div>
         <div className={styles.bigger}>
-          <div className={styles.rozvrh}>
-            <div className={styles.rozvrh_head}>
-              <h1 className={styles.rozvrh_header}>Rozvrh</h1>
-            </div>
-          </div>
+          <Rozvrh />
         </div>
       </div>
     </IsAuthenticated>

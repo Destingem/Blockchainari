@@ -4,13 +4,14 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 2%
+    justify-content: center;
+    gap: 2%;
+    margin-top: 4.5%;
 }
 
 .znamka{
     width: 98%;
-    height: 17.5%;
+    height: fit-content;
     
 }
 .obdrzena_znamka{

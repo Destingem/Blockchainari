@@ -16,21 +16,21 @@ export default async function handler(req, res) {
       var response = {};
       if (body.zpravy) {
         const fetched = await fetch(
-          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/zpravy.json"
+          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/authedUsers/" + verification.address +  "/zpravy.json"
         );
         const data = await fetched.json();
         response = { ...response, zpravy: data };
       }
       if (body.klasifikace) {
         const fetched = await fetch(
-          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/klasifikace.json"
+          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/authedUsers/" + verification.address + "/zak/znamky.json"
         );
         const data = await fetched.json();
         response = { ...response, klasifikace: data };
       }
       if (body.du) {
         const fetched = await fetch(
-          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/du.json"
+          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/authedUsers/" + verification.address + "/zak/ukoly.json"
         );
         const data = await fetched.json();
         response = { ...response, du: data };
@@ -76,6 +76,27 @@ export default async function handler(req, res) {
         );
         const data = await fetched.json();
         response = {...response, znamky: data}
+      }
+      if (body.predmety) {
+        const fetched = await fetch(
+          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/predmety.json"
+        );
+        const data = await fetched.json();
+        response = {...response, predmety: data}
+      }
+      if(body.predmety_tridy){
+        const fetched = await fetch(
+          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/tridy/"+ body.value + "/predmety.json"
+        );
+        const data = await fetched.json();
+        response = {...response, predmety_tridy: data}
+      }
+      if(body.ucitele){
+        const fetched = await fetch(
+          "https://blockchainari-d4489-default-rtdb.europe-west1.firebasedatabase.app/ucitele.json"
+        );
+        const data = await fetched.json();
+        response = {...response, ucitele: data}
       }
       console.log(response);
       res.status(200).json(response);

@@ -1,0 +1,27 @@
+.du{
+    display: flex;
+    flex-direction: column;
+    padding: 1% 2% 1% 2%;
+    white-space: nowrap;
+}
+.main{
+    max-height: 100%;
+    width: 100%;
+    
+
+}
+.date{
+
+}
+.data{
+    display: flex;
+    justify-content: space-between;
+
+}
+.info{
+    display: flex;
+    gap: 5%;
+    align-items: center;
+    white-space: normal;
+
+}

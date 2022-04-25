@@ -3,10 +3,9 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-
   position: static;
   width: 100%;
-  height: 675px;
+  height: 92vh;
   padding: 2% 3% 0 5%;
 
   background: rgba(255, 255, 255, 0.01);
@@ -23,20 +22,26 @@
   animation: 10s back infinite;
 }
 @keyframes back {
-  0% {backdrop-filter: hue-rotate(0) ;}
-  50% {backdrop-filter: hue-rotate(60deg);}
-  100% {backdrop-filter: hue-rotate(0);}
+  0% {
+    backdrop-filter: hue-rotate(0);
+  }
+  50% {
+    backdrop-filter: hue-rotate(60deg);
+  }
+  100% {
+    backdrop-filter: hue-rotate(0);
+  }
 }
 .header {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
   font-size: 64px;
   line-height: 20%;
 
-  color: rgba(255, 255, 255, 0.9);
+  color: rgb(241, 241, 241);
 }
 .paragraph {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 36px;
   line-height: 44px;
@@ -60,25 +65,81 @@
   order: 2;
   flex-grow: 0;
   padding-top: 2rem;
-  
 }
-.button{
-justify-content: center;
-align-items: center;
+.button {
+  justify-content: center;
+  align-items: center;
 
-font-size: 1.2rem;
-background: rgba(255, 255, 255, 0.5);
-border: 0 solid rgba(61, 86, 178, 0.6);
-border-radius: 4px;
-max-height: 100%;
-min-width: 12.5rem;
-min-height: 4rem;
-width: fit-content;
-height: fit-content;
-white-space: nowrap;
-transition: 0.3s;
+  font-size: 2.5vh;
+  background: rgba(255, 255, 255, 0.5);
+  border: 0 solid rgba(61, 86, 178, 0.6);
+  color: rgb(38, 61, 143);
+  border-radius: 4px;
+  max-height: 100%;
+  min-height: 4rem;
+  width: fit-content;
+  height: fit-content;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-weight: 500;
+  padding: 0 5vh 0 5vh;
 }
-.button:hover{
+.button:hover {
   background: rgba(255, 255, 255, 0.822);
   transition: 0.5s;
+}
+
+
+.background {
+  background-image: url("../../public/images/background.jfif");
+  background-size: cover;
+}
+.paper{
+  min-width: 25vh;
+  min-height: 25vh;
+  
+  flex: 1 1 0px;
+  transition: transform 500ms;
+  justify-content:center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  padding: 1vh 1vh 1vh 1vh;
+  aspect-ratio: 1;
+  max-width: 100%;
+  max-height: 100%;
+}
+.papers{
+  display: flex;
+  margin-top: 50px;
+}
+
+.papers:focus-within .paper,
+.papers:hover .paper {
+  transform: translateX(-25%);
+}
+
+.paper:focus ~ .paper,
+.paper:hover ~ .paper {
+  transform: translateX(25%);
+}
+
+.papers .paper:focus,
+.papers .paper:hover {
+  transform: scale(1.25);
+  z-index: 1;
+}
+
+.paper > svg{
+  color:rgb(61, 86, 178);
+  width: 25%;
+  height: 25%;
+  
+}
+.text{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

@@ -1,0 +1,18 @@
+.heading{
+    padding-bottom: 0.5rem;
+    color: #fff;
+    font-size:x-large;
+    font-weight: 300;
+    letter-spacing: 0.05rem;
+}
+.main{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: left;
+}
+.main > *{
+    margin: 0;
+}
