@@ -2,7 +2,7 @@ import styles from "./Trida.module.css";
 import Randomstring from "randomstring";
 import { InputWrapper, Input, Button, MultiSelect, Text, Select } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import useFetch from "../customHooks/useFetch";
+import useFetch from "../customHooks/fetchRoute";
 import { useRouter } from "next/router";
 import { useForm } from "@mantine/form";
 export default function Trida(props) {
