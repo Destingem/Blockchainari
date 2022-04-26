@@ -1,4 +1,4 @@
-import useMetaMaskAuthentication from "../../Components/customHooks/useMetamaskAuthentication";
+import metaMaskAuthentication from "../../Components/customHooks/useMetamaskAuthentication";
 import NavBar from "../../Components/NavBar/Navbar";
 import styles from "../css/login.module.css";
 import { useDispatch } from "react-redux";
@@ -10,8 +10,9 @@ export default function Login() {
   const metamask = useMetaMask();
   const router = useRouter()
   const state = useSelector(state => state)
+ 
   function metamaskLogin() {
-    const isAuth =  useMetaMaskAuthentication(metamask, dispatch, state);
+    const isAuth =  metaMaskAuthentication(metamask, dispatch, state);
    isAuth.then((auth)=> {
     if (auth && auth.status) {
       router.replace("/dashboard")

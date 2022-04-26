@@ -4,7 +4,6 @@ import IsAuthenticated from "../../Components/IsAuthenticated";
 import styles from "./dashboard.module.css";
 import { authActions } from "../../store/auth";
 import { useRouter } from "next/router";
-import useFetch from "../../Components/customHooks/fetchRoute";
 import { Paper, Text } from "@mantine/core";
 import Zpravy from "../../Components/ForDashboard/Zpravy";
 import Randomstring from "randomstring";
@@ -12,13 +11,14 @@ import Znamky from "../../Components/ForDashboard/Znamky";
 import Du from "../../Components/ForDashboard/Du";
 import Rozvrh from "../../Components/ForDashboard/Rozvrh";
 import Link from "next/link";
+import fetchRoute from "../../Components/customHooks/fetchRoute";
 export default function Dashboard() {
   const [obsah, setObsah] = useState({ zpravy: [], grade: [], homework: [] });
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    const res =  useFetch(router, {
+    const res =  fetchRoute(router, {
       zpravy: true,
       klasifikace: true,
       du: true,
