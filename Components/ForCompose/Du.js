@@ -6,7 +6,7 @@ import { useForm } from "@mantine/form";
 import { NativeSelect, Select } from "@mantine/core";
 import getTrida from "../customHooks/getTrida";
 import { useRouter } from "next/router";
-import useFetch from "../customHooks/useFetch";
+import useFetch from "../customHooks/fetchRoute";
 import getUsers from "../customHooks/getUsers";
 import "dayjs/locale/cs";
 var firstLoad = true;
