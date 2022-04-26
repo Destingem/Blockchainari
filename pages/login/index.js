@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import DefaultStyles from "../../Components/DefaultStyles";
 export default function Login() {
   const dispatch = useDispatch();
   const metamask = useMetaMask();
@@ -20,7 +21,8 @@ export default function Login() {
    })
   }
   return (
-    <div className={styles.main}>
+    <DefaultStyles>
+      <div className={styles.main}>
       <button
         className={styles.button}
         style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
@@ -29,5 +31,6 @@ export default function Login() {
         Přihlásit se přes MetaMask
       </button>
     </div>
+    </DefaultStyles>
   );
 }

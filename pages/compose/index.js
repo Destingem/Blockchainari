@@ -21,6 +21,7 @@ import {BiMessage} from "react-icons/bi"
 import {FaChalkboardTeacher, FaUserFriends} from "react-icons/fa"
 import Rozvrh from "../../Components/ForCompose/Rozvrh";
 import Uzivatele from "../../Components/ForCompose/Uzivatele";
+import DefaultStyles from "../../Components/DefaultStyles"
 export default function Compose() {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
@@ -119,7 +120,7 @@ export default function Compose() {
   }
 
   return (
-    <MantineProvider>
+ <DefaultStyles>
     <div className={styles.main}>
       {message && (
         <Notification
@@ -145,7 +146,8 @@ export default function Compose() {
         <Tabs.Tab color="blue" sx={{color: "#fff", fontWeight: "bolder"}} label="Správa uživatelů" icon={<FaUserFriends />}><Pozice handleSubmit={handleSubmit} /></Tabs.Tab>
       </Tabs>
     </div>
-    </MantineProvider>
+    </DefaultStyles>
+
   );
 }
 // Davidova sestra je sportovní člověk

@@ -12,6 +12,7 @@ import Du from "../../Components/ForDashboard/Du";
 import Rozvrh from "../../Components/ForDashboard/Rozvrh";
 import Link from "next/link";
 import fetchRoute from "../../Components/customHooks/fetchRoute";
+import DefaultStyles from "../../Components/DefaultStyles";
 export default function Dashboard() {
   const [obsah, setObsah] = useState({ zpravy: [], grade: [], homework: [] });
   const dispatch = useDispatch();
@@ -98,6 +99,7 @@ export default function Dashboard() {
 
   return (
     <IsAuthenticated>
+    <DefaultStyles>
       <div className={styles.main}>
         <div className={styles.small}>
           <Zpravy zpravy={obsah.zpravy} />
@@ -117,6 +119,7 @@ export default function Dashboard() {
           <Rozvrh />
         </div>
       </div>
+      </DefaultStyles>
     </IsAuthenticated>
   );
 }
