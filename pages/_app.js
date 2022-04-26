@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }) {
     <Provider store={store}>
       <MetaMaskProvider>
       <ParallaxProvider>
+      <DefaultStyles>
         <MantineProvider
           withGlobalStyles
           withNormalizeCSS
@@ -22,10 +23,11 @@ function MyApp({ Component, pageProps }) {
             colorScheme: "light"
           }}
         >
-         
+          
             <Component {...pageProps} />
        
           </MantineProvider>
+          </DefaultStyles>
         </ParallaxProvider>
       </MetaMaskProvider>
     </Provider>
