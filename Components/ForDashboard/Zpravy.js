@@ -1,11 +1,12 @@
 import { Card, Text } from "@mantine/core";
+import Link from "next/link";
 import styles from "./Zpravy.module.css";
 
 export default function Zpravy(props) {
   return (
     <div className={styles.zpravy}>
       <div className={styles.head}>
-        <h2 className={styles.header}>Zprávy</h2>
+      <Link href="/zpravy"><h2 className={styles.header}>Zprávy</h2></Link>
       </div>
       <div className={styles.content}>
         {Array.isArray(props.zpravy) &&

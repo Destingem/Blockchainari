@@ -1,11 +1,12 @@
 import { Paper, RingProgress, Text } from "@mantine/core";
+import Link from "next/link";
 import GlobalStyle from "../../pages/dashboard/dashboard.module.css";
 import styles from "./Znamky.module.css";
 export default function Znamky(props) {
   return (
     <div className={GlobalStyle.smallerDiv}>
       <div className={GlobalStyle.head}>
-        <h2 className={GlobalStyle.header}>Klasifikace</h2>
+        <Link href="/klasifikace"><h2 className={GlobalStyle.header}>Klasifikace</h2></Link>
       </div>
       <div className={styles.znamky}>
         {Array.isArray(props.znamky) &&

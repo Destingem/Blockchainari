@@ -26,7 +26,7 @@ export default function Trida(props) {
       var resolved = [];
       for (var item in fetched.tridy) {
         resolved.push({
-          value: fetched.tridy[item].zamereni,
+          value:{name: fetched.tridy[item].zamereni},
           label: fetched.tridy[item].zamereni,
           key: Randomstring.generate(7),
         });
@@ -137,7 +137,7 @@ export default function Trida(props) {
        {form.values.zamereni && form.values.zamereni.map(zamereni => {
           return(
             <div>
-            <Text>{zamereni}</Text>
+            <Text>{zamereni.name}</Text>
             <InputWrapper id="" required label="Předměty">
           <MultiSelect
             searchable
@@ -147,11 +147,11 @@ export default function Trida(props) {
             data={predmety}
             onCreate={onCreatePredmetyHandler}
             placeholder="např. Kybernetická bezpečnost"
-            {...form.getInputProps(zamereni+ ".predmety", { type: "input" })}
+            {...form.getInputProps(zamereni.name, { type: "input" })}
           />
         </InputWrapper>
-        { form.values[zamereni + ".predmety"] ?
-        form.values[zamereni + ".predmety"].map((predmet) => {
+        { form.values[zamereni.name] ?
+        form.values[zamereni.name].map((predmet) => {
             console.log(predmet)
             return (
               <InputWrapper id="" required label={"Předmět " + predmet.nazevPredmetu}>

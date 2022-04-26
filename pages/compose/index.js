@@ -49,7 +49,7 @@ export default function Compose() {
         var objectZamereni = {}
         zamereniA.map(zamer=> {
 
-          objectZamereni = {...objectZamereni, [zamer]: {a: "a"}}
+          objectZamereni = {...objectZamereni, [zamer.name]: {a: "a"}}
         })
         var objectPredmety = {}
         predmety.map(predmet=> {

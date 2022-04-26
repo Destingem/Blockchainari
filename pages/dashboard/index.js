@@ -11,6 +11,7 @@ import Randomstring from "randomstring";
 import Znamky from "../../Components/ForDashboard/Znamky";
 import Du from "../../Components/ForDashboard/Du";
 import Rozvrh from "../../Components/ForDashboard/Rozvrh";
+import Link from "next/link";
 export default function Dashboard() {
   const [obsah, setObsah] = useState({ zpravy: [], grade: [], homework: [] });
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function Dashboard() {
             });
           }
         }
-        msg = msg.slice(0, 4)
+        msg = msg.slice(0, 4);
       }
       if (data && data.klasifikace) {
         var znamky = [];
@@ -58,27 +59,24 @@ export default function Dashboard() {
             });
           }
         }
-        znamky = znamky.slice(0, 4)
+        znamky = znamky.slice(0, 4);
       }
       if (data && data.du) {
         var du = [];
-        
+
         for (var b in data.du) {
-          
-            if (data.du[b].date !== "" || undefined) {
-              
-              let { date, datum, predmet, tema } = data.du[b];
-              du.unshift({
-                date,
-                datum,
-                predmet,
-                tema,
-                key: Randomstring.generate(7),
-              });
-            
+          if (data.du[b].date !== "" || undefined) {
+            let { date, datum, predmet, tema } = data.du[b];
+            du.unshift({
+              date,
+              datum,
+              predmet,
+              tema,
+              key: Randomstring.generate(7),
+            });
           }
         }
-        du = du.slice(0, 3)
+        du = du.slice(0, 3);
       }
       setObsah((obsahBefore) => {
         var zpravy = obsahBefore.zpravy;
@@ -106,10 +104,12 @@ export default function Dashboard() {
           <Znamky znamky={obsah.grade} />
           <div className={styles.smallerDiv}>
             <div className={styles.head}>
-              <h2 className={styles.header}>Domácí úkoly</h2>
+              <Link href="/domaci-ukoly">
+                <h2 className={styles.header}>Domácí úkoly</h2>
+              </Link>
             </div>
             <div className={styles.obsah}>
-            <Du du={obsah.homework} />
+              <Du du={obsah.homework} />
             </div>
           </div>
         </div>
