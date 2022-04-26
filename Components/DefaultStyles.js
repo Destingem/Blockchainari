@@ -15,7 +15,14 @@ export default function DefaultStyles(props) {
   }
   return (
     <>
-    {props.children}
+      {props.children}
+    
+    </>
+  );
+}
+
+/*
+
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,8 +33,6 @@ export default function DefaultStyles(props) {
       </Head>
       {modals && modals.register == true && state && <RegisterInfo state={state} />}
       <NavBar />
-      
+      {props.children}
       <Bottom />
-    </>
-  );
-}
+*/
