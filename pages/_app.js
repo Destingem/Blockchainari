@@ -12,8 +12,7 @@ function MyApp({ Component, pageProps }) {
       <ParallaxProvider>
       
         <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
+         
           theme={{
             // Override any other properties from default theme
             fontFamily: "Verdana, sans-serif",
