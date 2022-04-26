@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }) {
             colorScheme: "light"
           }}
         >
-          <DefaultStyles>
+         
             <Component {...pageProps} />
-          </DefaultStyles>
+       
           </MantineProvider>
         </ParallaxProvider>
       </MetaMaskProvider>
