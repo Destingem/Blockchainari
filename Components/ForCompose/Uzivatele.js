@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, Card, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useFetch from "../customHooks/useFetch";
+import useFetch from "../customHooks/fetchRoute";
 import styles from "./Uzivatele.module.css";
 
 export default function Uzivatele() {

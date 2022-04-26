@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
-import useFetch from "../customHooks/useFetch";
+import useFetch from "../customHooks/fetchRoute";
 import { useRouter } from "next/router";
 import { useForm } from "@mantine/form";
 import { useInputState } from "@mantine/hooks";

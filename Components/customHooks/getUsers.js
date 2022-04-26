@@ -1,4 +1,4 @@
-import useFetch from "./useFetch";
+import useFetch from "./fetchRoute";
 import Randomstring from "randomstring";
 export default async function getUsers(router){
     const data = await useFetch(router, { users: true });

@@ -1,7 +1,7 @@
 import styles from "./Pozice.module.css";
 import { Button, MultiSelect, Notification, Select } from "@mantine/core";
 import { useEffect, useState } from "react";
-import useFetch from "../customHooks/useFetch";
+import useFetch from "../customHooks/fetchRoute";
 import { useRouter } from "next/router";
 import Randomstring from "randomstring";
 import { useForm } from "@mantine/form";

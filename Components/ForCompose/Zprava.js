@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import useFetch from "../customHooks/useFetch";
+import useFetch from "../customHooks/fetchRoute";
 import styles from "./Zprava.module.css";
 import { useForm } from "@mantine/form";
 

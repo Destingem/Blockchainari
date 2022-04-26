@@ -2,7 +2,7 @@ import styles from "./Predmet.module.css";
 import { Button, Input, InputWrapper, MultiSelect } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useEffect, useState } from "react";
-import useFetch from "../customHooks/useFetch";
+import useFetch from "../customHooks/fetchRoute";
 import { useRouter } from "next/router";
 export default function Predmet(props) {
   const router = useRouter()

@@ -2,7 +2,7 @@
 import { useForm } from "@mantine/form"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import useFetch from "../customHooks/useFetch"
+import useFetch from "../customHooks/fetchRoute";
 import styles from "./Rozvrh.module.css"
 
 export default function Rozvrh(){
