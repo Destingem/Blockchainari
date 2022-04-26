@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux" 
 import { useRouter } from "next/router"
 import { authActions } from "../../store/auth"
-export default async function useFetch(router, props){
+export default async function fetchRoute(router, props){
 
     const token = localStorage.getItem("Auth_token")
     const response = await fetch("/api/data", {
