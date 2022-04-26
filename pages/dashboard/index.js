@@ -4,7 +4,7 @@ import IsAuthenticated from "../../Components/IsAuthenticated";
 import styles from "./dashboard.module.css";
 import { authActions } from "../../store/auth";
 import { useRouter } from "next/router";
-import useFetch from "../../Components/customHooks/useFetch";
+import useFetch from "../../Components/customHooks/fetchRoute";
 import { Paper, Text } from "@mantine/core";
 import Zpravy from "../../Components/ForDashboard/Zpravy";
 import Randomstring from "randomstring";
@@ -18,7 +18,7 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    const res = useFetch(router, {
+    const res =  useFetch(router, {
       zpravy: true,
       klasifikace: true,
       du: true,
