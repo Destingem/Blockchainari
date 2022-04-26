@@ -1,4 +1,4 @@
-import { Menu, MenuItem, MenuLabel } from "@mantine/core";
+import { Menu, MenuItem, MenuLabel, Text } from "@mantine/core";
 import { redirect } from "next/dist/server/api-utils";
 import { defaultHead } from "next/head";
 import { useRouter } from "next/router";
@@ -32,7 +32,7 @@ export default function NavBar(props) {
           <div className={styles.text} onClick={redirectTo}><h1>Blockchaináři</h1></div>
       </div>
     
-   <Menu position="bottom" placement="end" control={state && state.eth && state.eth.wallet ? <button className={styles.button}>{state.user.firstName + " " + state.user.lastName + " (" +state.eth.wallet + ")"}</button> : <button className={styles.button} onClick={()=> { handleClick("/login")}}>Přihlásit se</button>}>
+   <Menu position="bottom" placement="end" control={state && state.eth && state.eth.wallet ? <button className={styles.button}><Text>{state.user.firstName + " " + state.user.lastName + " (" +state.eth.wallet + ")"}</Text></button> : <button className={styles.button} onClick={()=> { handleClick("/login")}}>Přihlásit se</button>}>
      <MenuLabel>Lorem Ipsum</MenuLabel>
      <MenuItem onClick={()=> { handleClick("/dashboard")}}>Dashboard</MenuItem>
      <MenuItem onClick={()=> { handleClick("/profile")}}>Profil</MenuItem>

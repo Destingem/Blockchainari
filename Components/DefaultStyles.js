@@ -24,9 +24,8 @@ export default function DefaultStyles(props) {
         />
       </Head>
       {modals && modals.register == true && state && <RegisterInfo state={state} />}
-      {props.children}
       <NavBar />
-      
+      {props.children}
       <Bottom />
     </>
   );
