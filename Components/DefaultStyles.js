@@ -15,10 +15,18 @@ export default function DefaultStyles(props) {
   }
   return (
     <>
-    
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Roboto:wght@300&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       {modals && modals.register == true && state && <RegisterInfo state={state} />}
-      <NavBar />
       {props.children}
+      <NavBar />
+      
       <Bottom />
     </>
   );
